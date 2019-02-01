@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Execution{
 
-    public int execute(String command){
+    public static int execute(String command){
 	Process p;
 	int exitStatus;
         try{

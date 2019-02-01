@@ -14,12 +14,11 @@ public class ServerTest {
     @Test
     public void executeTest() {
 	String command = "ls";
-	CIserver.Execution exec = new CIserver.Execution();
-	int exitCode = exec.execute(command);
+	int exitCode = CIserver.Execution.execute(command);
 	assertEquals(exitCode, 0);
 
 	command = "ls monkey";
-	exitCode = exec.execute(command);
+	exitCode = CIserver.Execution.execute(command);
         assertEquals(exitCode, 2);
 
     }
