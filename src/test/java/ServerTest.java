@@ -11,4 +11,17 @@ public class ServerTest {
         assertEquals(true, true);
     }
 
+    @Test
+    public void executeTest() {
+	String command = "ls";
+	CIserver.Execution exec = new CIserver.Execution();
+	int exitCode = exec.execute(command);
+	assertEquals(exitCode, 0);
+
+	command = "ls monkey";
+	exitCode = exec.execute(command);
+        assertEquals(exitCode, 2);
+
+    }
+
 }
