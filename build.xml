@@ -43,8 +43,7 @@
   </target>
 
   <target name="run">
-    <mkdir dir="${main.build.dir}"/>
-    <java classname="ContinuousIntegrationServer">
+    <java classname="CIserver.ContinuousIntegrationServer">
 	<classpath>
             <path refid="classpath.main"/>
 	    <pathelement location="${main.build.dir}"/>
