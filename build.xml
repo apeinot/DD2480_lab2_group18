@@ -17,6 +17,8 @@
     <pathelement location="lib/hamcrest-core-1.3.jar"/>
     <pathelement location="${main.build.dir}"/>
     <pathelement location="lib/json-20180813.jar"/>
+    <pathelement location="lib/javax.mail.jar"/>
+    <pathelement location="lib/activation.jar"/>
   </path>
 
   <target name="compile">
