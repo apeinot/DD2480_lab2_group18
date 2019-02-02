@@ -19,10 +19,10 @@ public class ServerTest {
         assertEquals(true, true);
     }
 
-    @Test
+    /**@Test
     public void testJSON(){
         RequestTest.doJSON();
         assertEquals(true, true);
-    }
+    }*/
 
 }
