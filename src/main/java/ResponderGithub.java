@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.json.*;
 
-public class RequestTest{
+public class ResponderGithub{
 
     /**
     doRequest does a HTTP POST request to the given URL and includes the specified
