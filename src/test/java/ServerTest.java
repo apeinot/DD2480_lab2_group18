@@ -16,7 +16,7 @@ public class ServerTest {
 
     /**Test cases of the execute method from the class Execution
     First test - try to execute the command 'ls' which should work and return 0 as exit code
-    Second test - try to execute the command 'ls monkey' which should result 
+    Second test - try to execute the command 'ls monkey' which should result
                   in an error (the monkey directory doesn't exist) and return 2 as exit code
     Third test - try to execute the command 'ls' in the directory 'src/' which should work
                  and return 0 as exit code
@@ -50,4 +50,18 @@ public class ServerTest {
         assertEquals(exitCode, 0);
     }
 
+    /**
+    Testing the e-mail notification function.
+    */
+    @Test
+    public void emailTest(){
+        // The mail bot e-mails itself, should work and return 0.
+        assertEquals(CIserver.Responder.send("mailbot8080@gmail.com", "Hello", "there"), 0);
+        // Entering the wrong password for the bot, should not work (return code 1).
+        assertEquals(CIserver.Responder.send("mailbot8080@gmail.com", "password", "mailbot8080@gmail.com", "Hello", "there"), 1);
+        // Nonsensical sender address, should not work (return code 1).
+        assertEquals(CIserver.Responder.send("sfjsfjtset", "sfsdfsdf", "mailbot8080@gmail.com", "Hello", "there"), 1);
+        // Nonsensical recipient address, should not work (return code 1).
+        assertEquals(CIserver.Responder.send("hlejsdjfosfkke", "Hello", "there"), 1);
+    }
 }
