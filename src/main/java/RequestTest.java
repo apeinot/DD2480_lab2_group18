@@ -8,51 +8,66 @@ import org.json.*;
 
 public class RequestTest{
 
-    public static void doRequest(){
-        String url_strig = "https://api.github.com/repos/francislaus/WordReminder/statuses/";
-        String sha_string = "bbfe965fbbd961ab54412c5cdd8dbdb72fcf2e94";
+    /**
+    doRequest does a HTTP POST request to the given URL and includes the specified
+    data in the JSON format as a payload
+    @param url_string the URL of the status to be set
+    @param sha_string the sha sum of the commit to be set
+    @param request_params the parameters in string form as requested by doJSON
+    @return 0 if the request was successful, otherwise 1
+    */
+    public static int doRequest(String url_string, String sha_string, String request_params[]){
+        // hard-coded token of the CI server account
+        String token_string = "?access_token=19134cad75c0032988accbf7542fab2369269f71";
         HttpURLConnection con = null;
         OutputStream os = null;
-        String state = "success";
-        String target_url = "https://127.0.0.1";
-        String description = "We did it";
-        String context = "KTH bois";
         try{
-            URL url = new URL(url_strig + sha_string);
-            System.out.println("URL: "+url.getPath());
+            URL url = new URL(url_string + sha_string + token_string);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
             con.setUseCaches(false);
-            byte[] output = doJSON(state, target_url, description, context).toString().getBytes(StandardCharsets.UTF_8);
+            byte[] output = doJSON(request_params).toString().getBytes(StandardCharsets.UTF_8);
             con.setFixedLengthStreamingMode(output.length);
             con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             con.connect();
             os = con.getOutputStream();
             os.write(output);
+            // response code 201 means 'created', all other codes indicate an error
             int res_code = con.getResponseCode();
-            String res_mess = con.getResponseMessage();
-            System.out.println("Code: " + res_code);
-            System.out.println("Message: " + res_mess);
+            if(res_code != 201){
+                return 1;
+            }
             con.disconnect();
         }
         catch(Exception e){
             e.printStackTrace();
+            return 1;
         }
         finally{
             if(con != null){
                 con.disconnect();
             }
         }
+        return 0;
     }
 
-    private static JSONObject doJSON(String state, String target_url, String description, String context){
+    /**
+    doJSON converts an array of strings into the JSON format required by github
+    @param request_params an array with the arguments in form of strings in the
+                          following order: state, target_url, description, context
+    @return the json object containing the information
+    */
+    public static JSONObject doJSON(String request_params[]){
+        // use the org.json library
+        if(request_params == null){
+            return null;
+        }
         JSONObject jobj = new JSONObject();
-        jobj.put("state", state);
-        jobj.put("target_url", target_url);
-        jobj.put("description", description);
-        jobj.put("context", context);
-        System.out.println(jobj.toString());
+        jobj.put("state", request_params[0]);
+        jobj.put("target_url", request_params[1]);
+        jobj.put("description", request_params[2]);
+        jobj.put("context", request_params[3]);
         return jobj;
     }
 
