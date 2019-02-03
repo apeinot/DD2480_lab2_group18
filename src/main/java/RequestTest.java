@@ -18,11 +18,12 @@ public class RequestTest{
     */
     public static int doRequest(String url_string, String sha_string, String request_params[]){
         // hard-coded token of the CI server account
-        String token_string = "?access_token=19134cad75c0032988accbf7542fab2369269f71";
+        String token_string = "?access_token=6c0a05b0fe8126566";
+        String token_string_2 = "287afec0de70ae841fd8856";
         HttpURLConnection con = null;
         OutputStream os = null;
         try{
-            URL url = new URL(url_string + sha_string + token_string);
+            URL url = new URL(url_string + sha_string + token_string + token_string_2);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
