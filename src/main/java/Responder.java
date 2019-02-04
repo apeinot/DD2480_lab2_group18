@@ -130,7 +130,7 @@ public class Responder{
             // Send e-mail
             Transport.send(message);
         }catch(MessagingException e){
-            //e.printStackTrace();
+            e.printStackTrace();
             return 1;
         }
         return 0;
