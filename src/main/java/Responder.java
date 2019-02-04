@@ -48,7 +48,7 @@ public class Responder{
             con.disconnect();
         }
         catch(Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             return 1;
         }
         finally{
@@ -130,7 +130,7 @@ public class Responder{
             // Send e-mail
             Transport.send(message);
         }catch(MessagingException e){
-            e.printStackTrace();
+            //e.printStackTrace();
             return 1;
         }
         return 0;
