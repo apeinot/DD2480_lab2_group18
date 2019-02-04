@@ -35,13 +35,13 @@ public class ResponderTest {
     }
 
     /**
-    Test case for doJSON in Responder.java. This test will fill data into the
+    Test case for create_json in Responder.java. This test will fill data into the
     json object and check whether a string is really in stored in the json format.
     The absence of other data is also tested. Last it is tested whether the function
     correclty returns null if the parameters were not correclty provided
      */
     @Test
-    public void testJSON(){
+    public void testCreateJson(){
         String[] request_params = new String[4];
         request_params[0] = "success";
         request_params[1] = "http://130.237.227.78:8018";

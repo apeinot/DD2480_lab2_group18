@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import CIserver.Responder;
-
-import org.json.*;
 import java.io.File;
 import java.io.IOException;
 
