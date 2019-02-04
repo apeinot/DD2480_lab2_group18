@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import CIserver.ResponderGithub;
+import CIserver.Responder;
 
 import org.json.*;
 import java.io.File;
@@ -32,13 +32,13 @@ public class ServerTest {
         request_params[1] = "http://130.237.227.78:8018";
         request_params[2] = "Cooking good in the neighborhood";
         request_params[3] = "CI Server of Group 18";
-        int ret_code = ResponderGithub.doRequest(url_string, sha_string, request_params);
+        int ret_code = CIserver.Responder.git_status(url_string, sha_string, request_params);
         assertEquals(ret_code, 0);
 
         // Second test case has an invalid sha_string and therefore produces
         // return value 1
         sha_string = "273f76f5f8c01955f99a70da10c18e48519d13b5";
-        ret_code = ResponderGithub.doRequest(url_string, sha_string, request_params);
+        ret_code = CIserver.Responder.git_status(url_string, sha_string, request_params);
         assertEquals(ret_code, 1);
     }
 
@@ -55,13 +55,13 @@ public class ServerTest {
         request_params[1] = "http://130.237.227.78:8018";
         request_params[2] = "Cooking good in the neighborhood";
         request_params[3] = "CI Server of Group 18";
-        JSONObject jobj = ResponderGithub.doJSON(request_params);
+        JSONObject jobj = CIserver.Responder.create_json(request_params);
         // Test case 1: string 'good' should be in the object - therefore true
         assertEquals(jobj.toString().contains("good"), true);
         // Test case 2: string 'goood' should be in the object - therefore false
         assertEquals(jobj.toString().contains("goood"), false);
         request_params = null;
-        jobj = ResponderGithub.doJSON(request_params);
+        jobj = CIserver.Responder.create_json(request_params);
         // Test case 3: invalid parameter request_params - therefore null
         assertEquals(jobj, null);
     }
