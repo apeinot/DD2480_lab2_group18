@@ -1,3 +1,4 @@
+package CIserver;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
@@ -6,22 +7,30 @@ import java.io.BufferedReader;
 import org.json.*;
 
 public class RequestParser{
-    String after = null;
-    String statuses_url = null;
+     String after = null;
+     String statuses_url = null;
+     String clone_url = null;
+     String name = null;
+     int statusCode;
 
     /**
     Parse request JSON and get the correct fields
     @param request The http(s) POST request
     */
-    public void parse(HttpServletRequest request) throws IOException{
+    public int parse(HttpServletRequest request) throws IOException{
+        statusCode = 1;
         try{
             JSONObject request_data = requestToJSON(request); // Get request data as JSON object
             getFields(request_data);
+        }catch(Error e){
+            statusCode = 0;
+            throw e;
         }catch(JSONException je){ //new JSONObject() could not parse the request.
-            System.out.println("Bad data from webhook, 'after' & 'statuses_url' set to null: \n " + je.toString());
+            System.out.println("Bad data from webhook, all fields set to null: \n " + je.toString());
         }catch(IOException ioe){ //BufferedReader failsed somehow
-            System.out.println("Something went wrong with POST request reader, 'after' & 'statuses_url' set to null: \n " + ioe.toString());
+            System.out.println("Something went wrong with POST request reader, all fields set to null: \n " + ioe.toString());
         }
+        return statusCode;
     }
 
     /**
@@ -44,31 +53,62 @@ public class RequestParser{
     This method reads the correct fields out of a JSON.
     @param request_data the JSON with the POST request data.
     */
-    public void getFields(JSONObject request_data){
-        try{
-            after = request_data.get("after").toString();
-        }catch(JSONException e){ //after field missing
-            System.out.println("Warning, 'after' not found, set to null: \n " + e.toString());
+    public  void getFields(JSONObject request_data){
+        JSONObject repository = null;
+        try {
+            repository = (JSONObject) request_data.get("repository"); //Nested JSON
+        } catch(JSONException e) {
+            statusCode = -1;
+            System.out.println("Warning, field: 'repository' not found, children will be set to null");
         }
+        after = getField("after", request_data);
+        statuses_url = getField("statuses_url", repository);
+        clone_url = getField("clone_url", repository);
+        name = getField("name", repository);
+    }
+
+    private String getField(String field, JSONObject request_data){
         try{
-            JSONObject repository = (JSONObject) request_data.get("repository"); //Nested JSON
-            statuses_url = repository.get("statuses_url").toString();
-        }catch(JSONException e){ //statuses_url field missing
-            System.out.println("Warning 'repository.statuses_url' not found, set to null: \n " + e.toString());
+            return request_data.get(field).toString();
         }
+        catch(Error e){
+            statusCode = -1;
+            throw e;
+        }
+        catch(JSONException e){
+            System.out.println("Warning '" + field + "' not found, set to null: \n " + e.toString());
+        }
+        catch(NullPointerException e){
+            System.out.println("Warning parent to '" + field + "' not found, set to null: \n " + e.toString());
+        }
+        return null;
     }
 
     /**
     @return The 'after' field of the request
     */
-    public String getAfterField(){
+    public  String getAfterField(){
         return after;
     }
 
     /**
     @return The 'statuses_url' field of the request
     */
-    public String getStatuses_urlField(){
+    public  String getStatuses_urlField(){
         return statuses_url;
+    }
+
+    /**
+    @return The 'clone_url' field of the request
+    */
+    public  String getClone_urlField(){
+        return clone_url;
+    }
+
+    /**
+    @return The 'name' field of the request
+    */
+    public  String getNameField(){
+        return name;
     }
 }
