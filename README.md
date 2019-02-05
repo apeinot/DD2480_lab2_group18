@@ -3,14 +3,14 @@ Lab 2 of DD2480 (group 18): Implementation of a Continuous Integration server
 
 Travis status: [![Build Status](https://travis-ci.org/apeinot/DD2480_lab2_group18.svg?branch=master)](https://travis-ci.org/apeinot/DD2480_lab2_group18)
 
-## Description of the project
+## Description of the Project
 Implements a small Continuous Integration (CI) server for GitHub using webhooks.
 
-The CI server's job is to verify changes before they're made to the mainline, so as to reduce integration issues by detecting them as soon as possible. The server accomplishes this by fetching the commits, compiling them, and running their tests. If the tests pass and there are no conflicts between the branch and the mainline, the changes can be merged. The compilation and testing are triggered by a GitHub webhook, which is a HTTP POST JSON payload describing a GitHub event, e.g. a push, a pull-request or a commit. In our case it's triggered on a push to a branch.
+The CI server's job is to verify changes before they are made to the mainline, so as to reduce integration issues by detecting them as soon as possible. The server accomplishes this by fetching the commits, compiling them, and running their tests. If the tests pass and there are no conflicts between the branch and the mainline, the changes can be merged. The compilation and testing are triggered by a GitHub webhook, which is a HTTP POST JSON payload describing a GitHub event, e.g. a push, a pull-request or a commit. In our case it's triggered on a push to a branch.
 
-## Running the project
+## Running the Project
 
-### Platform and dependencies
+### Platform and Dependencies
 
 *Platform*  
 The project as been tested under Java 8 and 10 (other versions may also work).
@@ -23,7 +23,7 @@ The project as been tested under Java 8 and 10 (other versions may also work).
   * Jetty 7.0.2 and servlet-api-2.5 for running the server
   * org.json for parsing and editing JSONobjects
 
-### Compilation, running and testing
+### Compilation, Running and Testing
 
 In a terminal (in the root folder of the project):
 * run `ant compile` to compile the project
