@@ -24,44 +24,29 @@ public class ServerTest {
     */
     @Test
     public void executeTest() {
-	File file = new File("history/test/test.txt");
-	try{
-	    if (file.getParentFile().mkdirs()){
+	    File file = new File("history/test/test.txt");
+	    try{
+	        if (file.getParentFile().mkdirs()){
                 file.createNewFile();
+	        }
+	    }catch (IOException e){
+	        System.out.println(e);
 	    }
-	}catch (IOException e){
-	    System.out.println(e);
-	}
 
-	//Test 1
-	String command = "ls";
-	int exitCode = CIserver.Execution.execute(command, file);
-	assertEquals(exitCode, 0);
+	    //Test 1
+	    String command = "ls";
+	    int exitCode = CIserver.Execution.execute(command, file);
+	    assertEquals(exitCode, 0);
 
-	//Test 2
-	command = "ls monkey";
-	exitCode = CIserver.Execution.execute(command, file);
+	    //Test 2
+	    command = "ls monkey";
+	    exitCode = CIserver.Execution.execute(command, file);
         assertEquals(exitCode, 2);
 
-	//Test 3
-	File dir = new File("src/");
+	    //Test 3
+	    File dir = new File("src/");
         command = "ls";
         exitCode = CIserver.Execution.execute(command, file, dir);
         assertEquals(exitCode, 0);
-    }
-
-    /**
-    Testing the e-mail notification function.
-    */
-    @Test
-    public void emailTest(){
-        // The mail bot e-mails itself, should work and return 0.
-        assertEquals(CIserver.Responder.send("mailbot8080@gmail.com", "Hello", "there"), 0);
-        // Entering the wrong password for the bot, should not work (return code 1).
-        assertEquals(CIserver.Responder.send("mailbot8080@gmail.com", "password", "mailbot8080@gmail.com", "Hello", "there"), 1);
-        // Nonsensical sender address, should not work (return code 1).
-        assertEquals(CIserver.Responder.send("sfjsfjtset", "sfsdfsdf", "mailbot8080@gmail.com", "Hello", "there"), 1);
-        // Nonsensical recipient address, should not work (return code 1).
-        assertEquals(CIserver.Responder.send("hlejsdjfosfkke", "Hello", "there"), 1);
     }
 }
