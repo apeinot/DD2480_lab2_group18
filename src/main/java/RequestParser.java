@@ -16,6 +16,7 @@ public class RequestParser{
     /**
     Parse request JSON and get the correct fields
     @param request The http(s) POST request
+    @return The status code. 1 for success, 0 for connection/response issues and -1 for parsing issues.
     */
     public int parse(HttpServletRequest request) throws IOException{
         statusCode = 1;
