@@ -58,7 +58,6 @@ public class RequestParser{
         try {
             repository = (JSONObject) request_data.get("repository"); //Nested JSON
         } catch(JSONException e) {
-            statusCode = -1;
             System.out.println("Warning, field: 'repository' not found, children will be set to null");
         }
         after = getField("after", request_data);
