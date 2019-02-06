@@ -35,10 +35,26 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // for example
         // 1st clone your repository
         // 2nd compile the code
-        String commit_id;
-        String clone_url;
-        String name;
-        String reponame;
+        RequestParser parser = new RequestParser();
+        int returncode;
+        if ((returncode = parser.parse(request)) != 1) {
+
+        }
+        String commit_id = parser.getAfterField();
+        String clone_url = parser.getClone_urlField();
+        String reponame = parser.getNameField();
+        String name = clone_url().split("/")[3];
+        Responder resp = new Responder();
+        String[] request_params = new String[4];
+        request_params[0] = "pending";
+        request_params[1] = "http://130.237.227.78:8018";
+        request_params[2] = "Waiting for results from CI server"
+        request_params[3] = "CI Server of Group 18";
+        String url_string = "https://api.github.com/repos/"+name+"/"+reponame+"/statuses/";
+        if (resp.git_status(url_string, commit_id, request_params) != 0) {
+
+        }
+
         File file = new File("history/"+name +"/"+reponame+"/"+commit_id+".log");
         try {
             if(File.getParentFile.mkdirs()) {
@@ -48,9 +64,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
             e.printStackTrace();
         }
         File dir = new File(reponame+"/");
-        Responder resp = new Responder();
         // Run CI tests
-        int returncode;
         if ((returncode = Execution.execute("git clone " + clone_url, file)) != 0) {
             // Something went wrong
         }
@@ -88,9 +102,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
             }
         }
         //Set github status
-        String[] request_params = new String[4];
-        request_params[0] = result;
-        request_params[1] = "http://130.237.227.78:8018";
+
         String desc = "All tests completed successfully.";
         if (commandfail[0]) {
             if (commandfail[1]) {
@@ -104,9 +116,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
             desc = "One or more tests failed";
         }
         request_params[2] = desc;
-        request_params[3] = "CI Server of Group 18";
-        String url_string = "https://api.github.com/repos/"+name+"/"+reponame+"/statuses/";
-        if (resp.git_status(url_string, commit_id, request_params) == 0){
+        if (resp.git_status(url_string, commit_id, request_params) != 0){
             //Status set successfully
         }
 
@@ -128,7 +138,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
             mailText = "One or more tests failed.\n"
                     +request_params[1]+"\n\nLog:\n"+sb.toString();
         }
-        if (resp.send("mailbot8080@gmail.com", subject, mailText) == 0) {
+        if (resp.send("mailbot8080@gmail.com", subject, mailText) != 0) {
             //E-mail sent successfully
         }
 
