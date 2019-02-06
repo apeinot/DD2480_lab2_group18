@@ -27,6 +27,7 @@ public class RequestParserTest{
         assertEquals(rp.getClone_urlField(), null);
         assertEquals(rp.getNameField(), null);
         assertEquals(rp.getEmailField(), null);
+        System.out.println("REQUESTPARSER: DONE TESTING BAD DATA ^^^^^^^^^^^^\n\n\n");
 
 
     }
@@ -65,6 +66,7 @@ public class RequestParserTest{
         assertEquals(rp.getClone_urlField(), null);
         assertEquals(rp.getNameField(), "correct_name");
         assertEquals(rp.getEmailField(), null);
+        System.out.println("REQUESTPARSER: DONE TESTING PARTIAL DATA ^^^^^^^^\n\n\n");
     }
 
 }
