@@ -70,7 +70,7 @@ public class RequestParser{
         name = getField("name", repository);
         email = getField("email", pusher);
     }
-
+    
     /**
     This method returns a specific (user indicated) field of the request data json.
     @param field The name of the field which should be extracted from the request json.
