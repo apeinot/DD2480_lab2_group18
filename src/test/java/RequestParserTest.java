@@ -16,7 +16,7 @@ public class RequestParserTest{
     */
     @Test
     public void getFiedsTest(){
-        RequestParser rp = new RequestParser();
+        CIserver.RequestParser rp = new CIserver.RequestParser();
         
         //Testing the field getter when fields are non existent, should:
         //1) Not crash (test of try catch) and
