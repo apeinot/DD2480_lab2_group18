@@ -26,7 +26,7 @@ public class RequestParserTest{
         rp.getFields(jo);
         assertEquals(rp.getAfterField(), null);
         assertEquals(rp.getStatuses_urlField(), null);
-
+        
         //Testing the field getter when the fields exist, should:
         //1) Not crash and
         //2) Set all values correctly

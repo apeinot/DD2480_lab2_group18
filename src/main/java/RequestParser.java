@@ -120,4 +120,11 @@ public class RequestParser{
     public  String getNameField(){
         return name;
     }
+
+    /**
+    @return The 'email' field of the request
+    */
+    public  String getEmailField(){
+        return email;
+    }
 }
