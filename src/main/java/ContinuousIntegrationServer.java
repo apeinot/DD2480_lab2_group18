@@ -43,12 +43,12 @@ public class ContinuousIntegrationServer extends AbstractHandler
         String commit_id = parser.getAfterField();
         String clone_url = parser.getClone_urlField();
         String reponame = parser.getNameField();
-        String name = clone_url().split("/")[3];
+        String name = clone_url.split("/")[3];
         Responder resp = new Responder();
         String[] request_params = new String[4];
         request_params[0] = "pending";
         request_params[1] = "http://130.237.227.78:8018";
-        request_params[2] = "Waiting for results from CI server"
+        request_params[2] = "Waiting for results from CI server";
         request_params[3] = "CI Server of Group 18";
         String url_string = "https://api.github.com/repos/"+name+"/"+reponame+"/statuses/";
         if (resp.git_status(url_string, commit_id, request_params) != 0) {
@@ -57,7 +57,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
         File file = new File("history/"+name +"/"+reponame+"/"+commit_id+".log");
         try {
-            if(File.getParentFile.mkdirs()) {
+            if(file.getParentFile().mkdirs()) {
                 file.createNewFile();
             }
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         String desc = "All tests completed successfully.";
         if (commandfail[0]) {
             if (commandfail[1]) {
-                desc = "Program and test compilation failed."
+                desc = "Program and test compilation failed.";
             } else {
                 desc = "Program compilation failed";
             }
