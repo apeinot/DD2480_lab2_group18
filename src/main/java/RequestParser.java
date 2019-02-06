@@ -11,7 +11,6 @@ public class RequestParser{
      String statuses_url = null;
      String clone_url = null;
      String name = null;
-     String email_address = null;
      int statusCode;
 
     /**
@@ -67,7 +66,12 @@ public class RequestParser{
         clone_url = getField("clone_url", repository);
         name = getField("name", repository);
     }
-
+    /**
+    This method returns a specific (user indicated) field of the request data json.
+    @param field The name of the field which should be extracted from the request json.
+    @param request_data The request json.
+    @return The string content of the field.
+    */
     private String getField(String field, JSONObject request_data){
         try{
             return request_data.get(field).toString();
@@ -111,12 +115,5 @@ public class RequestParser{
     */
     public  String getNameField(){
         return name;
-    }
-
-    /**
-    @return The 'email_address' field of the request
-    */
-    public  String getEmail_addressField(){
-        return email_address;
     }
 }
