@@ -70,7 +70,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         request_params[2] = "Waiting for results from CI server";
         request_params[3] = "CI Server of Group 18";
         String url_string = "https://api.github.com/repos/"+name+"/"+reponame+"/statuses/";
-        if (resp.git_status(url_string, commit_id, request_params) != 0) {
+        if ((returncode = resp.git_status(url_string, commit_id, request_params)) != 0) {
             return 1;
         }
         File file = new File("history/"+name +"/"+reponame+"/"+commit_id+".log");
