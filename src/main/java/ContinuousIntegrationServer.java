@@ -144,6 +144,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
 
         //Send email
+        /*
         String subject = "Build result of commit "+commit_id;
         String mailText = "All tests ran successfully. "+request_params[1];
         if (commandfail[0]) {
@@ -163,7 +164,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
         if (resp.send("mailbot8080@gmail.com", subject, mailText) != 0) {
             return 1;
-        }
+        }*/
         return 0;
 
     }
