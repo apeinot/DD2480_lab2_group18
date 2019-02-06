@@ -12,6 +12,10 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 
+/**
+The class Responder implements the functionality to give a sufficient answer to the
+results of the test throughout commit statuses and mail notifications.
+*/
 public class Responder{
 
     /**
