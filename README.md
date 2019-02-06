@@ -8,6 +8,18 @@ Implements a small Continuous Integration (CI) server for GitHub using webhooks.
 
 The CI server's job is to verify changes before they are made to the mainline, so as to reduce integration issues by detecting them as soon as possible. The server accomplishes this by fetching the commits, compiling them, and running their tests. If the tests pass and there are no conflicts between the branch and the mainline, the changes can be merged. The compilation and testing are triggered by a GitHub webhook, which is a HTTP POST JSON payload describing a GitHub event, e.g. a push, a pull-request or a commit. In our case it's triggered on a push to a branch.
 
+## Implementation of the notifications
+
+### GitHub notifications
+
+
+
+### E-mail notifications
+
+For the e-mail notifications the dependencies JavaMail API and the Java Application Framework (JAF) were used. We used Gmail's SMTP server to host the mail and a throwaway Gmail account was created to send the e-mail notifications. 
+
+To test the mailbot we had it mail itself with a correct and a wrong password. We supplied it with an invalid recipient e-mail address and ensured that an error was thrown. Likewise we also entered an invalid sender e-mail address.
+
 ## Running the Project
 
 ### Platform and Dependencies
@@ -28,7 +40,7 @@ The project as been tested under Java 8 and 10 (other versions may also work).
 In a terminal (in the root folder of the project):
 * run `ant compile` to compile the project
 * run `ant test-compile` to compile the project and the tests
-* run `ant test` to compile and run the test of the project 
+* run `ant test` to compile and run the test of the project
 * run `ant run` to launch the CI server
 * run `ant doc` to generate the API documentation of the project in HTML
 
