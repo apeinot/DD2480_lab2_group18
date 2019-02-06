@@ -27,7 +27,7 @@ public class Interface{
     @param request -
     @return 0 if all went well, anything else means something went wrong.
     */
-    public static String get(String path){
+    public static String get(String path, String url){
         String template = readFile(new File("src/main/java/template.html"));
         if(template == null){
             return null;
@@ -35,16 +35,23 @@ public class Interface{
         try{
             File file = new File(path);
             if(file.exists()){
-                String title = "";
+                String title = file.getName();
                 String body = "";
                 if(file.isFile()){
-                    title = file.getName();
                     body = readFile(file);
-                    template = template.replace("$title", title);
-                    template = template.replace("$body", body);
                 }else if(file.isDirectory()){
-
+                    String[] parts = path.split("/");
+                    String newPath = "";
+                    for(int i=0; i<parts.length - 1; i++){
+                        newPath += parts[i] + "/";
+                    }
+                    body += "<a href=" + url + newPath + ">..</a><br>";
+                    for(File entry : file.listFiles()){
+                        body += "<a href=" + url + path + entry.getName() + ">" + entry.getName() + "</a><br>";
+                    }
                 }
+                template = template.replace("$title", title);
+                template = template.replace("$body", body);
             }else{
                 return null;
             }
