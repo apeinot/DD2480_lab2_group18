@@ -15,9 +15,9 @@ public class RequestParserTest{
     Tests both the getFields method AND the getter methods.
     */
     @Test
-    public void getFiedsTest(){
-        RequestParser rp = new RequestParser();
-        
+    public void getFieldsTest(){
+        CIserver.RequestParser rp = new CIserver.RequestParser();
+
         //Testing the field getter when fields are non existent, should:
         //1) Not crash (test of try catch) and
         //2) Not set the values.
