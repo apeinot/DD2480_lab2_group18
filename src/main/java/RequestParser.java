@@ -11,6 +11,7 @@ public class RequestParser{
      String statuses_url = null;
      String clone_url = null;
      String name = null;
+     String email_address = null;
      int statusCode;
 
     /**
