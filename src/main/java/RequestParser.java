@@ -11,6 +11,7 @@ public class RequestParser{
      String statuses_url = null;
      String clone_url = null;
      String name = null;
+     String email = null;
      int statusCode;
 
     /**
@@ -58,14 +59,17 @@ public class RequestParser{
         JSONObject repository = null;
         try {
             repository = (JSONObject) request_data.get("repository"); //Nested JSON
+            pusher = (JSONObject) request_data.get("pusher"); //Nested JSON
         } catch(JSONException e) {
-            System.out.println("Warning, field: 'repository' not found, children will be set to null");
+            System.out.println("Warning, field: parent JSON not found, children will be set to null");
         }
         after = getField("after", request_data);
         statuses_url = getField("statuses_url", repository);
         clone_url = getField("clone_url", repository);
         name = getField("name", repository);
+        email = getField("email", pusher);
     }
+
     /**
     This method returns a specific (user indicated) field of the request data json.
     @param field The name of the field which should be extracted from the request json.
