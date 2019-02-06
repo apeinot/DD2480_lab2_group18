@@ -1,33 +1,56 @@
 package CIserver;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 
 /**
 
 */
 public class Interface{
-    public String html =   "<!DOCTYPE html>
-                            <html>
-                                <head>
-                                    <title>$title</title>
-                                    <meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8""/>
-                                </head>
-                                <body>
-                                    $body
-                                </body>
-                            </html>";
-    /**
+    public static String readFile(File file){
+        try{
+            String str = "";
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null){
+                str += line;
+            }
+            return str;
+        }catch(Exception e){
+            return null;
+        }
+    }
 
+    /**
+    Måste skrivas.
+    @param request -
+    @return 0 if all went well, anything else means something went wrong.
     */
-    public int get(HttpServletRequest request) throws IOException{
-        URL url = new URL(request.getServletPath());
-        File log = new File(url.getPath());
-        String title = "";
-        String body = "";
-        htmlString = htmlString.replace("$title", title);
-        htmlString = htmlString.replace("$body", body);
+    public static String get(String path){
+        String template = readFile(new File("src/main/java/template.html"));
+        if(template == null){
+            return null;
+        }
+        try{
+            File file = new File(path);
+            if(file.exists()){
+                String title = "";
+                String body = "";
+                if(file.isFile()){
+                    title = file.getName();
+                    body = readFile(file);
+                    template = template.replace("$title", title);
+                    template = template.replace("$body", body);
+                }else if(file.isDirectory()){
+
+                }
+            }else{
+                return null;
+            }
+        }catch(Exception e){
+            return null;
+        }
+        return template;
     }
 }
