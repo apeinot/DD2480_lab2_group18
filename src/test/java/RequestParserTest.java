@@ -26,17 +26,18 @@ public class RequestParserTest{
         rp.getFields(jo);
         assertEquals(rp.getAfterField(), null);
         assertEquals(rp.getStatuses_urlField(), null);
-        
+
         //Testing the field getter when the fields exist, should:
         //1) Not crash and
         //2) Set all values correctly
-        jsonString = "{\"after\":\"correct_string\",\"repository\":{\"statuses_url\":\"Correct.url/test\",\"clone_url\":\"Correct.url/clone/test\",\"name\":\"correct_name\"}}";
+        jsonString = "{\"after\":\"correct_string\",\"repository\":{\"statuses_url\":\"Correct.url/test\",\"clone_url\":\"Correct.url/clone/test\",\"name\":\"correct_name\"}, \"pusher\":{\"email\": \"correct_email.com\"}}";
         jo = new JSONObject(jsonString);
         rp.getFields(jo);
         assertEquals(rp.getAfterField(), "correct_string");
         assertEquals(rp.getStatuses_urlField(), "Correct.url/test");
         assertEquals(rp.getClone_urlField(), "Correct.url/clone/test");
         assertEquals(rp.getNameField(), "correct_name");
+        assertEquals(rp.getEmailField(), "correct_email.com");
 
         //Testing the field getter when some fields exist, should:
         //1) Not crash and
@@ -48,6 +49,7 @@ public class RequestParserTest{
         assertEquals(rp.getStatuses_urlField(), null);
         assertEquals(rp.getClone_urlField(), null);
         assertEquals(rp.getNameField(), "correct_name");
+        assertEquals(rp.getEmailField(), null);
     }
 
 }
