@@ -65,6 +65,8 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
         File dir = new File(reponame+"/");
         // Run CI tests
+        boolean[] commandfail = new boolean[3];
+        String result = "success";
         if ((returncode = Execution.execute("git clone " + clone_url, file)) != 0) {
             // Something went wrong
         }
@@ -72,36 +74,21 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
         }
         if ((returncode = Execution.execute("ant compile", file, dir)) != 0){
-
+            commandfail[0] = true;
+            result = "failure";
         }
         if ((returncode = Execution.execute("ant test-compile", file, dir)) != 0){
-
+            commandfail[1] = true;
+            result = "failure";
         }
         if ((returncode = Execution.execute("ant test", file, dir)) != 0){
-
+            commandfail[2] = true;
+            result = "failure";
         }
         if ((returncode = Execution.execute("rm -rf " + reponame, file)) != 0){
 
         }
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String line;
-        int command = 0;
-        StringBuilder sb = new StringBuilder();
-        String result = "success";
-        boolean[] commandfail = new boolean[3];
-        //Parse test results
-        while((line = br.readLine()) != null) {
-            if (line.equals("STANDARD OUTPUT:")) {
-                command++;
-            } else if (line.equals("BUILD FAILED")) {
-                result = "failure";
-                commandfail[command-3] = true;
-            }
-            if (command > 2 && command < 6) {
-                sb.append(line);
-                sb.append("\n");
-            }
-        }
+
         //Set github status
 
         String desc = "All tests completed successfully.";
@@ -128,17 +115,17 @@ public class ContinuousIntegrationServer extends AbstractHandler
         if (commandfail[0]) {
             if (commandfail[1]) {
                 mailText = "Program and test compilation failed.\n"
-                        +request_params[1]+"\n\nLog:\n"+sb.toString();
+                        +request_params[1]+"\n\nLog:\n"+file.toString();
             } else {
                 mailText = "Program compilation failed.\n"
-                        +request_params[1]+"\n\nLog:\n"+sb.toString();
+                        +request_params[1]+"\n\nLog:\n"+file.toString();
             }
         } else if (commandfail[1]) {
             mailText = "Test compilation failed.\n"
-                    +request_params[1]+"\n\nLog:\n"+sb.toString();
+                    +request_params[1]+"\n\nLog:\n"+file.toString();
         } else if (commandfail[2]) {
             mailText = "One or more tests failed.\n"
-                    +request_params[1]+"\n\nLog:\n"+sb.toString();
+                    +request_params[1]+"\n\nLog:\n"+file.toString();
         }
         if (resp.send("mailbot8080@gmail.com", subject, mailText) != 0) {
             //E-mail sent successfully
