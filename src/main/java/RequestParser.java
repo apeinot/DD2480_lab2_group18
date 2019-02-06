@@ -57,6 +57,7 @@ public class RequestParser{
     */
     public  void getFields(JSONObject request_data){
         JSONObject repository = null;
+        JSONObject pusher = null;
         try {
             repository = (JSONObject) request_data.get("repository"); //Nested JSON
             pusher = (JSONObject) request_data.get("pusher"); //Nested JSON
