@@ -99,6 +99,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
             }
             if (command > 2 && command < 6) {
                 sb.append(line);
+                sb.append("\n");
             }
         }
         //Set github status
@@ -115,6 +116,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         } else if (commandfail[2]) {
             desc = "One or more tests failed";
         }
+        request_params[0] = result;
         request_params[2] = desc;
         if (resp.git_status(url_string, commit_id, request_params) != 0){
             //Status set successfully
