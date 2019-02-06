@@ -12,7 +12,9 @@ The CI server's job is to verify changes before they are made to the mainline, s
 
 ### GitHub notifications
 
+For the GitHub notifications we used the JSON library org.json. Furthermore we created a throwaway GitHub account for the CI server so that the commits statuses can be set correctly.
 
+To test the GitHub commit-set-status function we set the status for a valid commit id and for an invalid one. The first test will succeed while the second one will fail.
 
 ### E-mail notifications
 
