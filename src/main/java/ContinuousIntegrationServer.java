@@ -40,27 +40,33 @@ public class ContinuousIntegrationServer extends AbstractHandler
         String name;
         String reponame;
         File file = new File("history/"+name +"/"+reponame+"/"+commit_id+".log");
-        File dir = new File("reponame");
+        try {
+            if(File.getParentFile.mkdirs()) {
+                file.createNewFile();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        File dir = new File(reponame+"/");
         Responder resp = new Responder();
-        Execution exec = new Execution();
         // Run CI tests
         int returncode;
-        if ((returncode = exec.execute("git clone " + clone_url, file)) != 0) {
+        if ((returncode = Execution.execute("git clone " + clone_url, file)) != 0) {
             // Something went wrong
         }
-        if ((returncode = exec.execute("git checkout "+commit_id, reponame, file)) != 0){
+        if ((returncode = Execution.execute("git checkout "+commit_id, file, dir)) != 0){
 
         }
-        if ((returncode = exec.execute("ant compile", reponame, file)) != 0){
+        if ((returncode = Execution.execute("ant compile", file, dir)) != 0){
 
         }
-        if ((returncode = exec.execute("ant test-compile", reponame, file)) != 0){
+        if ((returncode = Execution.execute("ant test-compile", file, dir)) != 0){
 
         }
-        if ((returncode = exec.execute("ant test", reponame, file)) != 0){
+        if ((returncode = Execution.execute("ant test", file, dir)) != 0){
 
         }
-        if ((returncode = exec.execute("rm -rf " + reponame, file)) != 0){
+        if ((returncode = Execution.execute("rm -rf " + reponame, file)) != 0){
 
         }
         BufferedReader br = new BufferedReader(new FileReader(file));
