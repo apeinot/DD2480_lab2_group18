@@ -15,19 +15,23 @@ public class Interface{
     /**
     Returns the contents of a file in a string.
     @param file - A file.
+    @param isLog specifies whether the given file is a log file and needs added linebreak.
     @return a string that contains the contents of the file, or if there is a
             FileNotFoundException, NullPointerException or another exception,
             return null.
     */
-    public static String readFile(File file){
+    public static String readFile(File file, boolean isLog){
         try{
-            String str = "";
             BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder sb;
             String line;
             while ((line = br.readLine()) != null){
-                str += line;
+                sb.append(line);
+                if(isLog) {
+                    sb.append("<br>");
+                }
             }
-            return str;
+            return sb.toString();
         }catch(Exception e){
             return null;
         }
@@ -46,7 +50,7 @@ public class Interface{
         // Add history
         //path = "history" + path;
         // The HTML template file that is to be filled with a body and a title.
-        String template = readFile(new File("src/main/java/template.html"));
+        String template = readFile(new File("src/main/java/template.html"), false);
         // Template file wasn't found.
         if(template == null){
             return null;
@@ -59,7 +63,7 @@ public class Interface{
                 StringBuilder body = new StringBuilder();
                 // If it's a file
                 if(file.isFile()){
-                    body.append(readFile(file));
+                    body.append(readFile(file), true);
                 }
                 // If it's a directory.
                 else if(file.isDirectory()){
