@@ -18,7 +18,7 @@ To test the GitHub commit-set-status function we set the status for a valid comm
 
 ### E-mail notifications
 
-For the e-mail notifications the dependencies JavaMail API and the Java Application Framework (JAF) were used. We used Gmail's SMTP server to host the mail and a throwaway Gmail account was created to send the e-mail notifications. 
+For the e-mail notifications the dependencies JavaMail API and the Java Application Framework (JAF) were used. We used Gmail's SMTP server to host the mail and a throwaway Gmail account was created to send the e-mail notifications.
 
 To test the mailbot we had it mail itself with a correct and a wrong password. We supplied it with an invalid recipient e-mail address and ensured that an error was thrown. Likewise we also entered an invalid sender e-mail address.
 
@@ -62,10 +62,12 @@ Every commit referenced an issue directly in the commit message title or body (e
   * Merge some pull requests into master
 * **Emil**
   * Add E-Mail responder
+  * Add web interface.
   * Write and review README
 * **Franz**
   * Implement GitHub responder
   * Write and review README
+  * Add web interface.
   * Merge some pull requests into master
 * **Jonathan**
   * Set up Server
