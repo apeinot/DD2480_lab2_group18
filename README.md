@@ -22,6 +22,12 @@ For the e-mail notifications the dependencies JavaMail API and the Java Applicat
 
 To test the mailbot we had it mail itself with a correct and a wrong password. We supplied it with an invalid recipient e-mail address and ensured that an error was thrown. Likewise we also entered an invalid sender e-mail address.
 
+## History of project builds
+
+The server stores the result of all builds. This history is easily accessible via a web interface. This interface will be linked in the github and email notification.
+
+You can access the history directly by accessing the URL/IP: http://130.237.227.78:8018/. Each build is given an unique URL. in the form: http://130.237.227.78:8018/<user>/<repository>/<commit_id>.
+
 ## Running the Project
 
 ### Platform and Dependencies
@@ -71,6 +77,7 @@ Every commit referenced an issue directly in the commit message title or body (e
   * Merge some pull requests into master
 * **Jonathan**
   * Set up Server
+  * Add web interface.
   * Coordinate main control flow
   * Write and review README
 * **Samuel**
