@@ -38,7 +38,10 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // 1st clone your repository
         // 2nd compile the code
         if (method.equals("GET")) {
-
+            if(!request.getPathInfo().contains("favicon.ico")) {
+                String html = Interface.get(request.getPathInfo());
+                out.println(html);
+            }
         } else if (method.equals("POST")) {
             RequestParser parser = new RequestParser();
             int returncode;
@@ -59,7 +62,6 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
         }
 	System.out.println("CI job done");
-        out.println("CI job done");
     }
 
     /** Function for handling incoming post requests from the github webhook.
@@ -76,7 +78,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         Responder resp = new Responder();
         String[] request_params = new String[4];
         request_params[0] = "pending";
-        request_params[1] = "http://130.237.227.78:8018";
+        request_params[1] = "http://130.237.227.78:8018/"+name+"/"+reponame+"/"+commit_id+".log";
         request_params[2] = "Waiting for results from CI server";
         request_params[3] = "CI Server of Group 18";
         String url_string = "https://api.github.com/repos/"+name+"/"+reponame+"/statuses/";
