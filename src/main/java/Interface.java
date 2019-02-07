@@ -23,7 +23,7 @@ public class Interface{
     public static String readFile(File file, boolean isLog){
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuilder sb;
+            StringBuilder sb = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null){
                 sb.append(line);
@@ -56,14 +56,14 @@ public class Interface{
             return null;
         }
         try{
-            File file = new File(path);
+            File file = new File("history"+path);
             // If the current file or directory exists
             if(file.exists()){
                 String title = file.getName();
                 StringBuilder body = new StringBuilder();
                 // If it's a file
                 if(file.isFile()){
-                    body.append(readFile(file), true);
+                    body.append(readFile(file, true));
                 }
                 // If it's a directory.
                 else if(file.isDirectory()){
@@ -73,8 +73,9 @@ public class Interface{
                         newPath += parts[i] + "/";
                     }
                     // There shouldn't not be a back link in root.
-                    if(!path.equals("history/")){
+                    if(!path.equals("/")){
                         body.append("<a href=\"" + DOMAIN + newPath + "\">..</a><br>");
+                        path+="/";
                     }
                     // Directory and file links
                     for(File entry : file.listFiles()){

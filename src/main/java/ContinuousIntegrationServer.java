@@ -38,8 +38,10 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // 1st clone your repository
         // 2nd compile the code
         if (method.equals("GET")) {
-            String html = Interface.get("history"+request.getPathInfo());
-            out.println(html);
+            if(!request.getPathInfo().contains("favicon.ico")) {
+                String html = Interface.get(request.getPathInfo());
+                out.println(html);
+            }
         } else if (method.equals("POST")) {
             RequestParser parser = new RequestParser();
             int returncode;

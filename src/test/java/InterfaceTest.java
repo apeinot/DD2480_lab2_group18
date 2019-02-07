@@ -8,29 +8,29 @@ import org.json.*;
 public class InterfaceTest{
     @Test
     public void testGet(){
-        String str = CIserver.Interface.get("test/test.log");
+        String str = CIserver.Interface.get("/test/test.log");
         // Should not be null since there is a directory called test/test.log.
         assertNotEquals(str, null);
         // The function should return the contents of the file, which is testingtesting.
-        assertEquals(str.contains("testingtesting"), true);
+        assertEquals(str.contains("junit7948220691228770248.properties"), true);
 
-        str = CIserver.Interface.get("test/test1.log");
+        str = CIserver.Interface.get("/test/test1.log");
         // There is no file called test1.log, should return null.
         assertEquals(str, null);
 
-        str = CIserver.Interface.get("test/");
+        str = CIserver.Interface.get("/test");
         // There contains a link to test.log. Should be true, since test/ contains a test.log file.
-        assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN + "test/test.log\">test.log</a><br>"), true);
+        assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN + "/test/test.log\">test.log</a><br>"), true);
         // There contains a URL to the parent directory, which is just /. Should be true.
-        assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN + "\">..</a><br>"), true);
+        assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN +"/"+"\">..</a><br>"), true);
 
-        /*str = CIserver.Interface.get("history/");
+        str = CIserver.Interface.get("/");
         // Should exist and not be null
         assertNotEquals(str, null);
         // Empty path, should not have a back link.
         assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN + "\">..</a><br>"), false);
         // But should contain a link to the test folder, among others.
-        assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN + "test/\">test</a><br>"), true);*/
+        assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN + "/test\">test</a><br>"), true);
 
         // Null string as parameter, should return null.
         str = CIserver.Interface.get(null);
