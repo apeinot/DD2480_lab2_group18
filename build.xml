@@ -40,7 +40,7 @@
     <junit printsummary="on" haltonfailure="yes" fork="true">
         <classpath>
           <path refid="classpath.test"/>
-          <pathelement location="${test.build.dir}"/>
+	  <pathelement location="${test.build.dir}"/>
         </classpath>
         <formatter type="brief" usefile="false" />
         <batchtest>

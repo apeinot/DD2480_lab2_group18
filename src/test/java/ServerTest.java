@@ -1,6 +1,3 @@
-//Test cases of the CI server
-package CIServerTest;
-
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
