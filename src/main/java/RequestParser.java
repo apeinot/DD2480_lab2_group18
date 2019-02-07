@@ -6,6 +6,10 @@ import java.io.BufferedReader;
 
 import org.json.*;
 
+/**
+The class RequestParser implementes to functionality to parse the JSON payload of
+a request and store the required field for the CI server
+*/
 public class RequestParser{
      String after = null;
      String statuses_url = null;

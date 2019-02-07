@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import org.json.*;
 
+/**
+The class RequestParserTest provides test cases for the class RequestParser,
+which implements the parsing of JSON payloads.
+*/
 public class RequestParserTest{
 
     @Test
