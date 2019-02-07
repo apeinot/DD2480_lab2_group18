@@ -38,7 +38,10 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // 1st clone your repository
         // 2nd compile the code
         if (method.equals("GET")) {
-
+            if(!request.getPathInfo().contains("favicon.ico")) {
+                String html = Interface.get(request.getPathInfo());
+                out.println(html);
+            }
         } else if (method.equals("POST")) {
             RequestParser parser = new RequestParser();
             int returncode;
@@ -59,7 +62,6 @@ public class ContinuousIntegrationServer extends AbstractHandler
 
         }
 	System.out.println("CI job done");
-        out.println("CI job done");
     }
 
     /** Function for handling incoming post requests from the github webhook.
