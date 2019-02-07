@@ -103,6 +103,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
             String[] s = t.toString().split("T");
             output.write("Build created "+ s[0] + " " + s[1]);
             output.write(System.getProperty("line.separator"));
+	    output.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
