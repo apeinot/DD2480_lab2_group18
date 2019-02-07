@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.Request;
@@ -46,10 +48,15 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 String clone_url = parser.getClone_urlField();
                 String reponame = parser.getNameField();
                 String name = clone_url.split("/")[3];
-                handlePost(commit_id, clone_url, name, reponame);
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		executor.submit(() -> {
+    		    handlePost(commit_id, clone_url, name, reponame);
+		});
+                //handlePost(commit_id, clone_url, name, reponame);
             }
 
         }
+	System.out.println("CI job done");
         out.println("CI job done");
     }
 
@@ -144,7 +151,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
 
         //Send email
-        /*
+        
         String subject = "Build result of commit "+commit_id;
         String mailText = "All tests ran successfully. "+request_params[1];
         if (commandfail[0]) {
@@ -164,7 +171,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
         if (resp.send("mailbot8080@gmail.com", subject, mailText) != 0) {
             return 1;
-        }*/
+        }
         return 0;
 
     }
