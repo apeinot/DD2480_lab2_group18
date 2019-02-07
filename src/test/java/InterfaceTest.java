@@ -8,11 +8,11 @@ import org.json.*;
 public class InterfaceTest{
     @Test
     public void testGet(){
-        String str = CIserver.Interface.get("/test/test.log");
+        String str = CIserver.Interface.get("/test/test.txt");
         // Should not be null since there is a directory called test/test.log.
         assertNotEquals(str, null);
         // The function should return the contents of the file, which is testingtesting.
-        assertEquals(str.contains("junit7948220691228770248.properties"), true);
+        assertEquals(str.contains("README.md"), true);
 
         str = CIserver.Interface.get("/test/test1.log");
         // There is no file called test1.log, should return null.
@@ -20,7 +20,7 @@ public class InterfaceTest{
 
         str = CIserver.Interface.get("/test");
         // There contains a link to test.log. Should be true, since test/ contains a test.log file.
-        assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN + "/test/test.log\">test.log</a><br>"), true);
+        assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN + "/test/test.txt\">test.txt</a><br>"), true);
         // There contains a URL to the parent directory, which is just /. Should be true.
         assertEquals(str.contains("<a href=\"" + CIserver.Interface.DOMAIN +"/"+"\">..</a><br>"), true);
 
