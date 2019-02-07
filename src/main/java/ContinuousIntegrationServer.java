@@ -78,7 +78,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         Responder resp = new Responder();
         String[] request_params = new String[4];
         request_params[0] = "pending";
-        request_params[1] = "http://130.237.227.78:8018";
+        request_params[1] = "http://130.237.227.78:8018/"+name+"/"+reponame+"/"+commit_id+".log";
         request_params[2] = "Waiting for results from CI server";
         request_params[3] = "CI Server of Group 18";
         String url_string = "https://api.github.com/repos/"+name+"/"+reponame+"/statuses/";
