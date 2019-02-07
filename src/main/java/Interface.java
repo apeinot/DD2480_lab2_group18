@@ -3,13 +3,14 @@ package CIserver;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.URL;
+import java.lang.StringBuilder;
 
 /**
 Used for creating a HTML document for the web interface so that you can traverse
 the log file system and display the contents of the log files.
 */
 public class Interface{
-    public static final String DOMAIN = "http://130.237.227.78:8018/";
+    public static final String DOMAIN = "http://130.237.227.78:8018";
 
     /**
     Returns the contents of a file in a string.
@@ -42,6 +43,8 @@ public class Interface{
             interface, or if there were any errors null is returned.
     */
     public static String get(String path){
+        // Add history
+        //path = "history" + path;
         // The HTML template file that is to be filled with a body and a title.
         String template = readFile(new File("src/main/java/template.html"));
         // Template file wasn't found.
@@ -53,10 +56,10 @@ public class Interface{
             // If the current file or directory exists
             if(file.exists()){
                 String title = file.getName();
-                String body = "";
+                StringBuilder body = new StringBuilder();
                 // If it's a file
                 if(file.isFile()){
-                    body = readFile(file);
+                    body.append(readFile(file));
                 }
                 // If it's a directory.
                 else if(file.isDirectory()){
@@ -65,14 +68,18 @@ public class Interface{
                     for(int i=0; i<parts.length - 1; i++){
                         newPath += parts[i] + "/";
                     }
-                    body += "<a href=" + DOMAIN + newPath + ">..</a><br>";
+                    // There shouldn't not be a back link in root.
+                    if(!path.equals("history/")){
+                        body.append("<a href=\"" + DOMAIN + newPath + "\">..</a><br>");
+                    }
+                    // Directory and file links
                     for(File entry : file.listFiles()){
-                        body += "<a href=" + DOMAIN + path + entry.getName() + ">" + entry.getName() + "</a><br>";
+                        body.append("<a href=\"" + DOMAIN + path + entry.getName() + "\">" + entry.getName() + "</a><br>");
                     }
                 }
                 // Add title and body to HTML document.
                 template = template.replace("$title", title);
-                template = template.replace("$body", body);
+                template = template.replace("$body", body.toString());
             }else{
                 return null;
             }
