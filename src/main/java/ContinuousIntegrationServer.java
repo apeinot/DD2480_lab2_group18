@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.regex.Pattern;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.Request;
@@ -171,7 +172,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
             mailText = "One or more tests failed.\n"
                     +request_params[1]+"\n\nLog:\n"+file.toString();
         }
+        /*
         if (resp.send(email, subject, mailText) != 0) {
+            return 1;
+        }*/
+        if (resp.send("mailbot8080@gmail.com", subject, mailText) != 0) {
             return 1;
         }
         return 0;
