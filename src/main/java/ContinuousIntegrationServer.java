@@ -66,7 +66,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     @param clone_url the url for cloning the repository
     @param name the username of the owner of the repository
     @param reponame the name of the repository
-    @param email
+    @param email email of the pusher of the commit
     @return 0 if the request was handled successfully, 1 if there were any errors
     in any part of execution
     */
