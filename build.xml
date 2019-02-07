@@ -3,6 +3,8 @@
   <property name="main.src.dir" value="src/main/java"/>
   <property name="test.build.dir" value="build/test"/>
   <property name="test.src.dir" value="src/test/java"/>
+  <property name="src.dir" value="src"/>
+  <property name="doc.dir" value="doc"/>
 
   <path id="classpath.main">
     <pathelement location="lib/jetty-all-7.0.2.v20100331.jar"/>
@@ -20,6 +22,16 @@
     <pathelement location="lib/javax.mail.jar"/>
     <pathelement location="lib/activation.jar"/>
     <pathelement location="lib/jetty-all-7.0.2.v20100331.jar"/>
+  </path>
+
+  <path id="classpath.doc">
+    <pathelement location="lib/jetty-all-7.0.2.v20100331.jar"/>
+    <pathelement location="lib/servlet-api-2.5.jar"/>
+    <pathelement location="lib/json-20180813.jar"/>
+    <pathelement location="lib/javax.mail.jar"/>
+    <pathelement location="lib/activation.jar"/>
+    <pathelement location="lib/junit-4.12.jar"/>
+    <pathelement location="lib/hamcrest-core-1.3.jar"/>
   </path>
 
   <target name="compile">
@@ -56,6 +68,15 @@
 	    <pathelement location="${main.build.dir}"/>
 	</classpath>
     </java>
+  </target>
+
+  <target name="doc">
+    <delete dir="${doc.dir}" />
+    <mkdir dir="${doc.dir}" />
+    <javadoc destdir="${doc.dir}">
+        <fileset dir="${src.dir}" />
+	<classpath refid="classpath.doc"/>
+    </javadoc>
   </target>
 
 </project>
