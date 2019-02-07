@@ -48,9 +48,10 @@ public class ContinuousIntegrationServer extends AbstractHandler
                 String clone_url = parser.getClone_urlField();
                 String reponame = parser.getNameField();
                 String name = clone_url.split("/")[3];
+                String email = parser.getEmailField();
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		executor.submit(() -> {
-    		    handlePost(commit_id, clone_url, name, reponame);
+    		    handlePost(commit_id, clone_url, name, reponame, email);
 		});
                 //handlePost(commit_id, clone_url, name, reponame);
             }
@@ -65,10 +66,11 @@ public class ContinuousIntegrationServer extends AbstractHandler
     @param clone_url the url for cloning the repository
     @param name the username of the owner of the repository
     @param reponame the name of the repository
+    @param email
     @return 0 if the request was handled successfully, 1 if there were any errors
     in any part of execution
     */
-    public int handlePost(String commit_id, String clone_url, String name, String reponame) {
+    public int handlePost(String commit_id, String clone_url, String name, String reponame, String email) {
         int returncode;
         Responder resp = new Responder();
         String[] request_params = new String[4];
@@ -151,7 +153,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         }
 
         //Send email
-        
+
         String subject = "Build result of commit "+commit_id;
         String mailText = "All tests ran successfully. "+request_params[1];
         if (commandfail[0]) {
@@ -169,7 +171,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
             mailText = "One or more tests failed.\n"
                     +request_params[1]+"\n\nLog:\n"+file.toString();
         }
-        if (resp.send("mailbot8080@gmail.com", subject, mailText) != 0) {
+        if (resp.send(email, subject, mailText) != 0) {
             return 1;
         }
         return 0;

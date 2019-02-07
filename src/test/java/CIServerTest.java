@@ -20,12 +20,12 @@ public class CIServerTest{
         String name = "apeinot";
         String reponame = "DD2480_lab2_group18";
         // A test for a valid post request for a commit in a repository
-        int result = cis.handlePost(sha_string, clone_url, name, reponame);
+        int result = cis.handlePost(sha_string, clone_url, name, reponame, "mailbot8080@gmail.com");
         assertEquals(result, 0);
 
         // A test where the username does not match the owner of the given repo
         name = "jonagoo";
-        result = cis.handlePost(sha_string, clone_url, name, reponame);
+        result = cis.handlePost(sha_string, clone_url, name, reponame, "mailbot8080@gmail.com");
         assertEquals(result, 1);
     }
 }
