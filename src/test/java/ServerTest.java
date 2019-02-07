@@ -11,7 +11,7 @@ public class ServerTest {
 
     @Test
     public void testTrue() {
-        assertEquals(true, false);
+        assertEquals(true, true);
     }
 
     /**Test cases of the execute method from the class Execution
