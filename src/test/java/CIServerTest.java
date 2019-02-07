@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import org.json.*;
 
+/**
+The class CIServerTest provides test cases for ContinuousIntegrationServer,
+which sets up a HTTP server and handles all requests
+*/
 public class CIServerTest{
 
 

@@ -8,6 +8,10 @@ import org.json.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+The class ResponderTest provides test cases for the class Responder, which sets
+github statuses and sends mails in response.
+*/
 public class ResponderTest {
     /**
     Test case for git_status in Responder.java. This test will do one successful
