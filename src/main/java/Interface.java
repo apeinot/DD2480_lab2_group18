@@ -8,6 +8,11 @@ import java.net.URL;
 
 */
 public class Interface{
+    public static final String DOMAIN = "http://130.237.227.78:8018/";
+
+    /**
+
+    */
     public static String readFile(File file){
         try{
             String str = "";
@@ -27,7 +32,7 @@ public class Interface{
     @param request -
     @return 0 if all went well, anything else means something went wrong.
     */
-    public static String get(String path, String url){
+    public static String get(String path){
         String template = readFile(new File("src/main/java/template.html"));
         if(template == null){
             return null;
@@ -45,9 +50,9 @@ public class Interface{
                     for(int i=0; i<parts.length - 1; i++){
                         newPath += parts[i] + "/";
                     }
-                    body += "<a href=" + url + newPath + ">..</a><br>";
+                    body += "<a href=" + DOMAIN + newPath + ">..</a><br>";
                     for(File entry : file.listFiles()){
-                        body += "<a href=" + url + path + entry.getName() + ">" + entry.getName() + "</a><br>";
+                        body += "<a href=" + DOMAIN + path + entry.getName() + ">" + entry.getName() + "</a><br>";
                     }
                 }
                 template = template.replace("$title", title);
