@@ -21,6 +21,7 @@
     <pathelement location="lib/json-20180813.jar"/>
     <pathelement location="lib/javax.mail.jar"/>
     <pathelement location="lib/activation.jar"/>
+    <pathelement location="lib/jetty-all-7.0.2.v20100331.jar"/>
   </path>
 
   <path id="classpath.doc">
@@ -51,7 +52,7 @@
     <junit printsummary="on" haltonfailure="yes" fork="true">
         <classpath>
           <path refid="classpath.test"/>
-          <pathelement location="${test.build.dir}"/>
+	  <pathelement location="${test.build.dir}"/>
         </classpath>
         <formatter type="brief" usefile="false" />
         <batchtest>

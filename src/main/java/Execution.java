@@ -12,6 +12,10 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 
 
+/**
+The class Execution implements the functionality to execute the 'pull' and 'test'
+command and write it to a file
+*/
 public class Execution{
 
     /**Function to execute a command and write the output of the command in a file
