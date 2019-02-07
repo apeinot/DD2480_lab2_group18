@@ -5,7 +5,8 @@ import java.io.*;
 import java.net.URL;
 
 /**
-
+Used for creating a HTML document for the web interface so that you can traverse
+the log file system and display the contents of the log files.
 */
 public class Interface{
     public static final String DOMAIN = "http://130.237.227.78:8018/";
