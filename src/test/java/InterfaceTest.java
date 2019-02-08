@@ -5,7 +5,21 @@ import org.junit.Test;
 
 import org.json.*;
 
+import java.io.File;
+
 public class InterfaceTest{
+    @Test
+    public void testReadFile(){
+        String str = CIserver.Interface.readFile(new File("history/test/test.txt"), true);
+        // Should not be null, since this file exists.
+        assertNotEquals(str, null);
+        // This file should contain the string README.md
+        assertEquals(str.contains("README.md"), true);
+        str = CIserver.Interface.readFile(new File("history/test/test1.txt"), true);
+        // This file doesn't exist, therefore the string returned should be null.
+        assertEquals(str, null);
+    }
+
     @Test
     public void testGet(){
         String str = CIserver.Interface.get("/test/test.txt");
