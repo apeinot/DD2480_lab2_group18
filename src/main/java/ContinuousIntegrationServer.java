@@ -9,6 +9,10 @@ import java.io.PrintWriter;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
+import java.time.LocalDateTime;
+import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.Request;
@@ -93,6 +97,17 @@ public class ContinuousIntegrationServer extends AbstractHandler
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            LocalDateTime t = LocalDateTime.now();
+            Writer output = new BufferedWriter(new FileWriter(file, true));
+            String[] s = t.toString().split("T");
+            output.write("Build created "+ s[0] + " " + s[1]);
+            output.write(System.getProperty("line.separator"));
+	    output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         File dir = new File(reponame+"/");
         // Run CI tests
         boolean[] commandfail = new boolean[3];
