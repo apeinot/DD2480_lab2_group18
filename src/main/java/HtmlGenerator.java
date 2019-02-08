@@ -9,7 +9,7 @@ import java.lang.StringBuilder;
 Used for creating a HTML document for the web interface so that you can traverse
 the log file system and display the contents of the log files.
 */
-public class Interface{
+public class HtmlGenerator{
     public static final String DOMAIN = "http://130.237.227.78:8018";
 
     /**

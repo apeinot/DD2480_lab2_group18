@@ -43,7 +43,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
         // 2nd compile the code
         if (method.equals("GET")) {
             if(!request.getPathInfo().contains("favicon.ico")) {
-                String html = Interface.get(request.getPathInfo());
+                String html = HtmlGenerator.get(request.getPathInfo());
                 out.println(html);
             }
         } else if (method.equals("POST")) {
